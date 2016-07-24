@@ -23,13 +23,13 @@ class PersonController @Inject() (repo: PersonRepository, val messagesApi: Messa
     )
   }
 
-  def persons(): Action[AnyContent] = Action.async {
-    repo.list().map { people =>
+  def returnPeople(): Action[AnyContent] = Action.async {
+    repo.retrievePeople().map { people =>
       Ok(Json.toJson(people))
     }
   }
 
-  def insertPerson(): Action[JsValue] = Action.async(parse.json) {
+  def createPerson(): Action[JsValue] = Action.async(parse.json) {
     implicit request =>
       {
         {
@@ -37,7 +37,7 @@ class PersonController @Inject() (repo: PersonRepository, val messagesApi: Messa
             id <- (request.body \ "id").asOpt[Long]
             name <- (request.body \ "name").asOpt[String]
             age <- (request.body \ "age").asOpt[Int]
-          } yield repo.create(name, age).map { person => Ok("Id of Person Added : " + person.id) }
+          } yield repo.insertPerson(name, age).map { person => Ok("Id of Person Added : " + person.id) }
         }.getOrElse(Future { BadRequest("Wrong json format") })
       }
   }

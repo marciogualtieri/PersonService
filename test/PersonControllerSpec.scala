@@ -27,7 +27,7 @@ class PersonControllerSpec extends PersonTestHelper {
     "retrieve persons" in {
       postPerson(BoJackHorseman)
       postPerson(MrPeanutbutter)
-      val postResponse: Future[Result] = getPersons
+      val postResponse: Future[Result] = getPeople
       status(postResponse) mustBe OK
       contentType(postResponse) mustBe Some("application/json")
       persons(postResponse) mustBe Seq(BoJackHorseman, MrPeanutbutter)

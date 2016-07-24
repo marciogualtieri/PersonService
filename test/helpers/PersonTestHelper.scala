@@ -28,14 +28,14 @@ trait PersonTestHelper extends PlaySpec with OneAppPerTest {
     (JsPath \ "age").read[Int]
   )(Person.apply _)
 
-  def getPersons: Future[Result] = {
-    val postRequest = FakeRequest(GET, controllers.routes.PersonController.persons().url)
+  def getPeople: Future[Result] = {
+    val postRequest = FakeRequest(GET, controllers.routes.PersonController.returnPeople().url)
     route(app, postRequest).get
   }
 
   def postPerson(person: Person): Future[Result] = {
     val json = Json.toJson(person)
-    val request = FakeRequest(POST, controllers.routes.PersonController.insertPerson().url, PostHeaders, json)
+    val request = FakeRequest(POST, controllers.routes.PersonController.createPerson().url, PostHeaders, json)
     route(app, request).get
   }
 
