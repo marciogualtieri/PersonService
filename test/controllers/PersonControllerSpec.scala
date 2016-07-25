@@ -1,19 +1,20 @@
-import java.util.concurrent.Callable
+package controllers
 
-import play.api.test._
-import play.api.test.Helpers._
+import java.util.concurrent.Callable
 import java.util.concurrent.TimeUnit._
 
 import helpers.PersonTestHelper
 import models.Person
+import org.joda.time.DateTime
 import play.api.mvc.Result
+import play.api.test.Helpers._
 
 import scala.concurrent.Future
 
 class PersonControllerSpec extends PersonTestHelper {
 
-  val BoJackHorseman = Person(1, "BoJack Horseman", 52)
-  val MrPeanutbutter = Person(2, "Mr. Peanutbutter", 47)
+  val BoJackHorseman = Person(1, "BoJack Horseman", 52, new DateTime())
+  val MrPeanutbutter = Person(2, "Mr. Peanutbutter", 47, new DateTime())
 
   "PersonController" should {
 

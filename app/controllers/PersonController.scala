@@ -9,6 +9,8 @@ import dal._
 import scala.concurrent.{ ExecutionContext, Future }
 import javax.inject._
 
+import org.joda.time.DateTime
+
 class PersonController @Inject() (repo: PersonSlickRepository, val messagesApi: MessagesApi)(implicit ec: ExecutionContext) extends Controller with I18nSupport {
 
   def index = Action {
@@ -19,7 +21,8 @@ class PersonController @Inject() (repo: PersonSlickRepository, val messagesApi: 
     def writes(person: Person) = Json.obj(
       "id" -> person.id,
       "name" -> person.name,
-      "age" -> person.age
+      "age" -> person.age,
+      "lastUpdate" -> person.lastUpdate
     )
   }
 
@@ -37,7 +40,8 @@ class PersonController @Inject() (repo: PersonSlickRepository, val messagesApi: 
             id <- (request.body \ "id").asOpt[Long]
             name <- (request.body \ "name").asOpt[String]
             age <- (request.body \ "age").asOpt[Int]
-          } yield repo.insertPerson(name, age).map { person => Ok("Id of Person Added : " + person.id) }
+            lastUpdate <- (request.body \ "lastUpdate").asOpt[DateTime]
+          } yield repo.insertPerson(name, age, lastUpdate).map { person => Ok("Id of Person Added : " + person.id) }
         }.getOrElse(Future {
           BadRequest("Wrong json format")
         })

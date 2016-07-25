@@ -1,12 +1,13 @@
 package helpers
 
 import models.Person
+import org.joda.time.DateTime
 import org.scalatestplus.play.{ OneAppPerTest, PlaySpec }
+import play.api.libs.functional.syntax._
 import play.api.libs.json.{ JsPath, Json, Reads, Writes }
 import play.api.mvc.Result
-import play.api.test.{ FakeHeaders, FakeRequest }
 import play.api.test.Helpers._
-import play.api.libs.functional.syntax._
+import play.api.test.{ FakeHeaders, FakeRequest }
 
 import scala.concurrent.Future
 
@@ -18,14 +19,16 @@ trait PersonTestHelper extends PlaySpec with OneAppPerTest {
     def writes(person: Person) = Json.obj(
       "id" -> person.id,
       "name" -> person.name,
-      "age" -> person.age
+      "age" -> person.age,
+      "lastUpdate" -> person.lastUpdate
     )
   }
 
   private implicit val PersonReads: Reads[Person] = (
     (JsPath \ "id").read[Long] and
     (JsPath \ "name").read[String] and
-    (JsPath \ "age").read[Int]
+    (JsPath \ "age").read[Int] and
+    (JsPath \ "lastUpdate").read[DateTime]
   )(Person.apply _)
 
   def getPeople: Future[Result] = {
