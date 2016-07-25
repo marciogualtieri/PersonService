@@ -9,7 +9,7 @@ import dal._
 import scala.concurrent.{ ExecutionContext, Future }
 import javax.inject._
 
-class PersonController @Inject() (repo: PersonRepository, val messagesApi: MessagesApi)(implicit ec: ExecutionContext) extends Controller with I18nSupport {
+class PersonController @Inject() (repo: PersonSlickRepository, val messagesApi: MessagesApi)(implicit ec: ExecutionContext) extends Controller with I18nSupport {
 
   def index = Action {
     Ok(views.html.index("Crawler Scheduler Service"))
@@ -38,7 +38,9 @@ class PersonController @Inject() (repo: PersonRepository, val messagesApi: Messa
             name <- (request.body \ "name").asOpt[String]
             age <- (request.body \ "age").asOpt[Int]
           } yield repo.insertPerson(name, age).map { person => Ok("Id of Person Added : " + person.id) }
-        }.getOrElse(Future { BadRequest("Wrong json format") })
+        }.getOrElse(Future {
+          BadRequest("Wrong json format")
+        })
       }
   }
 
