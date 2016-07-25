@@ -49,7 +49,7 @@ postgres=# create database scheduler;
 activator clean run
 ```
 
-After the service is up, open the [this URL](http://localhost:9000/people) with your browser.
+After the service is up, open [this URL](http://localhost:9000/people) with your browser.
 You will be asked to apply an evolution (play will create the database schema).
 You should be good to go after that.
 
