@@ -31,13 +31,19 @@ postgres=# create user admin with password 'admin';
 
 ##Creating the Database Instance:
 
+Connect to the database as `admin`:
+
+```Bash
+$ psql -h localhost -p 5432 -U admin -d postgres
+```
+
 On `psql`'s prompt:
 
 ```SQL
 postgres=# create database scheduler;
 ```
 
-# Running in Development Mode
+# Running the App in Development Mode
 
 ```Bash
 activator clean run
