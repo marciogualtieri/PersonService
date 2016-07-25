@@ -5,7 +5,7 @@
 # Home page
 GET     /                          controllers.PersonController.index
 POST    /person                    controllers.PersonController.createPerson
-GET     /persons                   controllers.PersonController.returnPeople
+GET     /people                    controllers.PersonController.returnPeople
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file              controllers.Assets.versioned(path="/public", file: Asset)
