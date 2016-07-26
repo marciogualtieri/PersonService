@@ -26,7 +26,7 @@ $ psql -h localhost -p 5432 -U <your username> -d postgres
 On `psql`'s prompt:
 
 ```SQL
-postgres=# create user admin with password 'admin';
+postgres=# create user admin with password 'admin' createdb;
 ```
 
 ##Creating the Database Instance:
