@@ -29,7 +29,7 @@ On `psql`'s prompt:
 postgres=# create user admin with password 'admin' createdb;
 ```
 
-##Creating the Database Instance:
+## Creating the Database Instance:
 
 Connect to the database as `admin`:
 
